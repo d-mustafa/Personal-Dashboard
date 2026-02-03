@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="script.js"></script>
+
+    <style type="text/tailwindcss">
+      html {
+        background-color: black;
+        color: white;
+      }
+      #widget-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+    </style>
+
+    <title>Personal Dashboard</title>
+  </head>
+  <body>
+    <!-- Clock Widget -->
+    <!-- Music Player Widget -->
+    <!-- Drawing Widget -->
+    <br />
+    <h1 class="mt-30 text-3xl font-bold text-clifford text-center">
+      Cool Interactive Widgets
+    </h1>
+
+    <br />
+    <br />
+    <div id="widget-container">
+      <div
+        id="clock-widget-container"
+        class="bg-blue-400 mr-10 ml-10 w-75 h-75"
+      ></div>
+      <div
+        id="music-widget-container"
+        class="bg-[#ff4a53] mr-10 ml-10 w-75 h-75"
+      >
+        <img src="Images/music-note.png" class="w-40 relative top-5 left-15" />
+        <button
+          id="music-btn"
+          class="relative top-10 left-25 bg-red-500 rounded-lg w-25 hover:bg-[#ff424c]"
+        >
+          Import Song
+        </button>
+      </div>
+      <div
+        id="drawing-widget-container"
+        class="bg-white mr-10 ml-10 w-75 h-75"
+      ></div>
+    </div>
+  </body>
+</html>
