@@ -16,6 +16,18 @@
         flex-direction: row;
         justify-content: center;
       }
+      #clock-widget-container,
+      #canvas {
+        border-radius: 0.5rem;
+        transition: border-radius 2s;
+      }
+      #canvas:hover {
+        transition: border-radius 2s;
+      }
+      #clock-widget-container:hover {
+        transition: border-radius 2s;
+        border-radius: 100rem;
+      }
     </style>
 
     <title>Personal Dashboard</title>
@@ -36,28 +48,61 @@
       <div
         id="clock-widget-container"
         class="bg-blue-400 mr-10 ml-10 w-75 h-75"
-      ></div>
+      >
+        <!-- prevents border-radius bugs -->
+        <div class="bg-transparent w-75 h-75 inline"></div>
+        <!-- canvas -->
+        <canvas
+          id="clock"
+          width="300px"
+          height="300px"
+          class="bg-white w-70 h-70 ml-2.5 mt-2.5"
+        ></canvas>
+      </div>
       <!-- music -->
       <div
         id="music-widget-container"
-        class="bg-[#ff4a53] mr-10 ml-10 w-75 h-75"
+        class="bg-[#ff4a53] mr-10 ml-10 w-75 h-75 rounded-[0.5rem]"
       >
         <img src="Images/music-note.png" class="w-40 relative top-5 left-15" />
         <button
           onclick="triggerFileInput()"
-          class="relative top-10 left-25 bg-red-500 rounded-lg w-25 hover:bg-[#ff424c]"
+          class="relative top-10 left-25 bg-red-500 rounded-[0.5rem] w-25 hover:bg-[#ff424c]"
         >
           Upload Music
         </button>
-        <input type="file" id="file-input" accept="audio/*" style="display: none;" />
-        <audio id="audio-player" controls></audio>
+        <input
+          type="file"
+          id="file-input"
+          accept="audio/*"
+          style="display: none"
+        />
+        <audio
+          class="relative top-12 w-72 left-1.5"
+          id="audio-player"
+          src="songs/Over_the_Horizon.mp3"
+          controls
+          loop
+        ></audio>
       </div>
       <!-- drawing -->
       <div
         id="drawing-widget-container"
-        class="bg-white mr-10 ml-10 w-75 h-75"
-      ></div>
+        class="bg-white mr-10 ml-10 w-75 h-75 rounded-[0.5rem]"
+      >
+        <canvas
+          id="drawing"
+          width="500px"
+          height="500px"
+          class="inline w-75 h-75 rounded-[0.5rem]"
+        ></canvas
+        ><button
+          id="clear-drawing"
+          class="inline bg-gray-500 w-15 h-6 rounded-[1.5rem] hover:bg-gray-400 relative bottom-10 left-30"
+        >
+          clear
+        </button>
+      </div>
     </div>
   </body>
 </html>
-
