@@ -32,22 +32,27 @@
     <br />
     <br />
     <div id="widget-container">
+      <!-- clock -->
       <div
         id="clock-widget-container"
         class="bg-blue-400 mr-10 ml-10 w-75 h-75"
       ></div>
+      <!-- music -->
       <div
         id="music-widget-container"
         class="bg-[#ff4a53] mr-10 ml-10 w-75 h-75"
       >
         <img src="Images/music-note.png" class="w-40 relative top-5 left-15" />
         <button
-          id="music-btn"
+          onclick="triggerFileInput()"
           class="relative top-10 left-25 bg-red-500 rounded-lg w-25 hover:bg-[#ff424c]"
         >
-          Import Song
+          Upload Music
         </button>
+        <input type="file" id="file-input" accept="audio/*" style="display: none;" />
+        <audio id="audio-player" controls></audio>
       </div>
+      <!-- drawing -->
       <div
         id="drawing-widget-container"
         class="bg-white mr-10 ml-10 w-75 h-75"
@@ -55,3 +60,4 @@
     </div>
   </body>
 </html>
+
