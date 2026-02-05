@@ -11,11 +11,6 @@
         background-color: black;
         color: white;
       }
-      #widget-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-      }
       #clock-widget-container,
       #clock {
         border-radius: 100rem;
@@ -35,20 +30,18 @@
 
     <br />
     <br />
-    <div id="widget-container">
+    <div id="widget-container" class="flex flex-row justify-center">
       <!-- clock -->
       <div
         id="clock-widget-container"
-        class="bg-blue-400 mr-10 ml-10 w-75 h-75"
+        class="bg-blue-400 mr-10 ml-10 w-75 h-75 rounded-[100rem] flex justify-center items-center"
       >
-        <!-- prevents border-radius bugs -->
-        <div class="bg-transparent w-75 h-75 inline"></div>
         <!-- canvas -->
         <canvas
           id="clock"
           width="300px"
           height="300px"
-          class="bg-white w-70 h-70 ml-2.5 mt-2.5"
+          class="bg-white w-70 h-70 rounded-[100rem]"
         ></canvas>
       </div>
       <!-- music -->
@@ -98,6 +91,7 @@
     </div>
   </body>
 </html>
+
 
 
 
