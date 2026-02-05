@@ -14,16 +14,14 @@ function unclockify() {
   cnv.style.borderRadius = "0.5rem";
 }
 
-let x = 0;
 function tick() {
   ctx.clearRect(0, 0, cnv.width, cnv.height);
 
   ctx.fillStyle = "black";
   ctx.beginPath();
-  ctx.arc(x, 50, 20, Math.PI * 2, 0);
+  ctx.arc(100, 100, 5, Math.PI * 2, 0);
   ctx.fill();
 
-  x++;
   requestAnimationFrame(tick);
 }
 tick();
@@ -50,3 +48,4 @@ fileInput.addEventListener("change", (event) => {
 });
 
 // Drawing
+
