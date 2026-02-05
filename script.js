@@ -101,17 +101,23 @@ clearBtn.addEventListener("click", () => {
 })
 
 let drawEnabled = false;
-let mouseX, mouseY;
 drawCnv.addEventListener("mousedown", () => {
     drawEnabled = true;
 })
 drawCnv.addEventListener("mouseup", () => {
     drawEnabled = false;
 })
+drawCnv.addEventListener("mouseleave", () => {
+    drawEnabled = false;
+})
 
+let mouseX, mouseY;
 drawCnv.addEventListener("mousemove", (event) => {
-    let rect = drawCnv.getBoundingClientRect();
-    [mouseX, mouseY] = [(event.clientX-rect.left)*2, (event.clientY-rect.top)*2];
+    const rect = drawCnv.getBoundingClientRect();
+    const scaleX = drawCnv.width / rect.width;
+    const scaleY = drawCnv.height / rect.height;
+    mouseX = (event.clientX - rect.left) * scaleX;
+    mouseY = (event.clientY - rect.top) * scaleY;
 })
 
 function draw() {
@@ -129,6 +135,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
