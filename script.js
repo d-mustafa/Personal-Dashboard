@@ -1,5 +1,5 @@
 // PERSONAL DASHBOARD
-console.log("fillRect");
+console.log("second minute hour");
 // Clock
 const outerClock = document.getElementById("clock-widget-container");
 const clockCnv = document.getElementById("clock");
@@ -14,6 +14,7 @@ function unclockify() {
      clockCnv.style.borderRadius = "0.5rem";
 }
 let [secondHand, minuteHand, hourHand] = [0, 0, 0];
+let [second, minute, hour] = [Date.now(), Date.now(), Date.now()];
 function tick() {
     clockCtx.clearRect(0, 0, clockCnv.width, clockCnv.height);
 
@@ -28,16 +29,42 @@ function tick() {
     clockCtx.arc(clockCnv.width/2, clockCnv.height/2, 2.5, Math.PI * 2, 0);
     clockCtx.fill();
     
-      
-    clockCtx.fillStyle = "black";
+
+    let now = Date.now();
+    clockCtx.fillStyle = "#51a2ff";
     // second hand
-    clockCtx.fillRect(clockCnv.width/2, clockCnv.height/2, 100, 2);
-    
+    clockCtx.save();
+    clockCtx.translate(clockCnv.width/2, clockCnv.height/2);
+    clockCtx.rotate(secondHand);
+    clockCtx.fillRect(-50, -1, 230, 2);
+    clockCtx.restore();
+    if (now - second >= 1000) {
+        secondHand += Math.PI/16;
+        second = Date.now();
+    }
+
+    clockCtx.fillStyle = "black";
     // minute hand
-    clockCtx.fillRect(clockCnv.width/2, clockCnv.height/2, 100, 5);
+    clockCtx.save();
+    clockCtx.translate(clockCnv.width/2, clockCnv.height/2);
+    clockCtx.rotate(minuteHand);
+    clockCtx.fillRect(-25, -2.5, 145, 5);
+    clockCtx.restore();
+    if (now - minute >= 1000*60) {
+        minuteHand += Math.PI/16;
+        minute = Date.now();
+    }
       
     // hour hand
-    clockCtx.fillRect(clockCnv.width/2, clockCnv.height/2, 80, 5);
+    clockCtx.save();
+    clockCtx.translate(clockCnv.width/2, clockCnv.height/2);
+    clockCtx.rotate(hourHand);
+    clockCtx.fillRect(-20, -2.5, 120, 5);
+    clockCtx.restore();
+    if (now - hour >= 1000*3600) {
+        hourHand += Math.PI/16;
+        hour = Date.now();
+    }
     
       
     requestAnimationFrame(tick);
@@ -83,11 +110,6 @@ drawCnv.addEventListener("mouseip", () => {
     drawEnabled = false;
 })
 
-cnv.addEventListener("mousemove", (event) => {
-    let rect = cnv.getBoundingClientRect();
-    console.log(event.clientX-rect.left, " ", event.clientY-rect.top)
-})
-
 drawCnv.addEventListener("mousemove", (event) => {
     let rect = drawCnv.getBoundingClientRect();
     [mouseX, mouseY] = [event.clientX-rect.left, event.clientY-rect.top];
@@ -108,4 +130,5 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
