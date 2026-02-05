@@ -109,8 +109,11 @@ document.addEventListener("mouseup", () => {
 })
 
 
-let mouseX, mouseY;
+let [mouseX, mouseY] = [0, 0];
+let lastX, lastY;
 drawCnv.addEventListener("mousemove", (event) => {
+    lastX = mouseX;
+    lastY = mouseY;
     const rect = drawCnv.getBoundingClientRect();
     const scaleX = drawCnv.width / rect.width;
     const scaleY = drawCnv.height / rect.height;
@@ -122,9 +125,14 @@ function draw() {
     if (clearCanvas) {
         drawCtx.clearRect(0, 0, drawCnv.width, drawCnv.height);
         clearCanvas = false;
+        [mouseX, mouseY, lastX, lastY] = [0, 0, 0, 0];
     }
     if (drawEnabled && mouseX > 0 && mouseY > 0 && mouseX < drawCnv.width && mouseY < drawCnv.height) {
         drawCtx.fillStyle = "black";
+        drawCtx.beginPath();
+        drawCtx.arc(lastX, lastY, 4, Math.PI * 2, 0);
+        drawCtx.fill();
+        
         drawCtx.beginPath();
         drawCtx.arc(mouseX, mouseY, 4, Math.PI * 2, 0);
         drawCtx.fill();
@@ -133,6 +141,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
