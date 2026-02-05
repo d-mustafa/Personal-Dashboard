@@ -1,11 +1,20 @@
 // PERSONAL DASHBOARD
-console.log("second minute hour");
+console.log("every minute on the minute");
 // Clock
 const clockCnv = document.getElementById("clock");
 const clockCtx = clockCnv.getContext("2d");
 
-let [secondHand, minuteHand, hourHand] = [-Math.PI/2, -Math.PI/2, -Math.PI/2];
-let [second, minute, hour] = [Date.now(), Date.now(), Date.now()];
+// get the time
+let time = new Date();
+let seconds = time.getSeconds();
+let minutes = time.getMinute();
+let hours = time.getHours();
+
+let secondHand = -Math.PI/2 + (2 * Math.PI/60)*seconds;
+let minuteHand = -Math.PI/2 + (2 * Math.PI/60)*minutes;
+let hourHand = -Math.PI/2 + (2 * Math.Pi/12)*hours + (Math.PI/12)*(minutes/60) + (Math.PI/12)*(seconds/3600);
+
+let [secondTick, minuteTick, hourTick] = [Date.now(), Date.now(), Date.now()];
 function tick() {
     clockCtx.clearRect(0, 0, clockCnv.width, clockCnv.height);
 
@@ -21,11 +30,11 @@ function tick() {
     clockCtx.save();
     clockCtx.translate(clockCnv.width/2, clockCnv.height/2);
     clockCtx.rotate(secondHand);
-    clockCtx.fillRect(-45, -1, 200, 2);
+    clockCtx.fillRect(-45, -1, 180, 2);
     clockCtx.restore();
-    if (now - second >= 1000) {
+    if (now - secondTick >= 1000) {
         secondHand += 2 * Math.PI/60; // 60 seconds for a full revolution
-        second = Date.now();
+        secondTick = Date.now();
     }
 
     clockCtx.fillStyle = "black";
@@ -35,9 +44,9 @@ function tick() {
     clockCtx.rotate(minuteHand);
     clockCtx.fillRect(-25, -2.5, 145, 4);
     clockCtx.restore();
-    if (now - minute >= 1000*60) {
+    if (now - minuteTick >= 1000*60) {
         minuteHand += 2 * Math.PI/60; // 60 minutes for a full revolution
-        minute = Date.now();
+        minuteTick = Date.now();
     }
       
     // hour hand
@@ -46,9 +55,9 @@ function tick() {
     clockCtx.rotate(hourHand);
     clockCtx.fillRect(-20, -2.5, 120, 5);
     clockCtx.restore();
-    if (now - hour >= 1000) {
+    if (now - hourTick >= 1000) {
         hourHand += 2 * Math.PI/3600; // 3600 seconds for a full revolution
-        hour = Date.now();
+        hourTick = Date.now();
     }
 
     // clocks top
@@ -142,6 +151,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
