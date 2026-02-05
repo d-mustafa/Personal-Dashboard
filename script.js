@@ -133,6 +133,11 @@ function tick() {
   clockCtx.fill();
 
   // clock interactions
+  const dx = clockMouseX - clockCnv.width / 2;
+  const dy = clockMouseY - clockCnv.height / 2;
+  const distCenter = Math.hypot(dx, dy);
+  const angleToCenter = Math.atan2(dx, dy);
+  if (distCenter < 150) console.log(angleToCenter);
 
   requestAnimationFrame(tick);
 }
