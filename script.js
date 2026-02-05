@@ -13,7 +13,7 @@ function clockify() {
 function unclockify() {
      clockCnv.style.borderRadius = "0.5rem";
 }
-let [secondHand, minuteHand, hourHand] = [0, 0, 0];
+let [secondHand, minuteHand, hourHand] = [-Math.PI/2, -Math.PI/2, -Math.PI/2];
 let [second, minute, hour] = [Date.now(), Date.now(), Date.now()];
 function tick() {
     clockCtx.clearRect(0, 0, clockCnv.width, clockCnv.height);
@@ -114,13 +114,13 @@ let mouseX, mouseY;
 drawCnv.addEventListener("mousedown", () => {
     drawEnabled = true;
 })
-drawCnv.addEventListener("mouseip", () => {
+drawCnv.addEventListener("mouseup", () => {
     drawEnabled = false;
 })
 
 drawCnv.addEventListener("mousemove", (event) => {
     let rect = drawCnv.getBoundingClientRect();
-    [mouseX, mouseY] = [event.clientX-rect.left, event.clientY-rect.top];
+    [mouseX, mouseY] = [(event.clientX-rect.left)*2, (event.clientY-rect.top)*2];
 })
 
 function draw() {
@@ -131,13 +131,14 @@ function draw() {
     if (drawEnabled) {
         drawCtx.fillStyle = "black";
         drawCtx.beginPath();
-        drawCtx.arc(mouseX, mouseY, 2.5, Math.PI * 2, 0);
+        drawCtx.arc(mouseX, mouseY, 4, Math.PI * 2, 0);
         drawCtx.fill();
     }
   
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
