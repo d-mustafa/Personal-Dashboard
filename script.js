@@ -127,7 +127,8 @@ function draw() {
         clearCanvas = false;
         [mouseX, mouseY, lastX, lastY] = [0, 0, 0, 0];
     }
-    if (drawEnabled && mouseX > 0 && mouseY > 0 && mouseX < drawCnv.width && mouseY < drawCnv.height) {
+    let mouseInCanvas = mouseX > 0 && mouseY > 0 && mouseX < drawCnv.width && mouseY < drawCnv.height
+    if (drawEnabled && mouseInCanvas) {
         drawCtx.fillStyle = "black";
         drawCtx.beginPath();
         drawCtx.arc(lastX, lastY, 5, Math.PI * 2, 0);
@@ -137,10 +138,12 @@ function draw() {
         drawCtx.arc(mouseX, mouseY, 5, Math.PI * 2, 0);
         drawCtx.fill();
     }
+    if (!mouseInCanvas) [mouseX, mouseY, lastX, lastY] = [0, 0, 0, 0];
   
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
