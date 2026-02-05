@@ -1,5 +1,5 @@
 // PERSONAL DASHBOARD
-console.log("fillRect")
+console.log("fillRect");
 // Clock
 const outerClock = document.getElementById("clock-widget-container");
 const clockCnv = document.getElementById("clock");
@@ -74,13 +74,13 @@ clearBtn.addEventListener("click", () => {
     clearCanvas = true;
 })
 
-let draw = false;
+let drawEnabled = false;
 let mouseX, mouseY;
 drawCnv.addEventListener("mousedown", () => {
-    draw = true;
+    drawEnabled = true;
 })
 drawCnv.addEventListener("mouseip", () => {
-    draw = false;
+    drawEnabled = false;
 })
 
 cnv.addEventListener("mousemove", (event) => {
@@ -98,7 +98,7 @@ function draw() {
         drawCtx.clearRect(0, 0, drawCnv.width, drawCnv.height);
         clearCanvas = false;
     }
-    if (draw) {
+    if (drawEnabled) {
         drawCtx.fillStyle = "black";
         drawCtx.beginPath();
         drawCtx.arc(mouseX, mouseY, 2.5, Math.PI * 2, 0);
@@ -108,3 +108,4 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
