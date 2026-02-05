@@ -9,17 +9,11 @@ let [second, minute, hour] = [Date.now(), Date.now(), Date.now()];
 function tick() {
     clockCtx.clearRect(0, 0, clockCnv.width, clockCnv.height);
 
-    // clocks center
+    // clocks bottom
     clockCtx.fillStyle = "black";
     clockCtx.beginPath();
     clockCtx.arc(clockCnv.width/2, clockCnv.height/2, 5, Math.PI * 2, 0);
     clockCtx.fill();
-    
-    clockCtx.fillStyle = "white";
-    clockCtx.beginPath();
-    clockCtx.arc(clockCnv.width/2, clockCnv.height/2, 2.5, Math.PI * 2, 0);
-    clockCtx.fill();
-    
 
     let now = Date.now();
     clockCtx.fillStyle = "#51a2ff";
@@ -56,7 +50,12 @@ function tick() {
         hourHand += Math.PI/16;
         hour = Date.now();
     }
-    
+
+    // clocks top
+    clockCtx.fillStyle = "white";
+    clockCtx.beginPath();
+    clockCtx.arc(clockCnv.width/2, clockCnv.height/2, 2.5, Math.PI * 2, 0);
+    clockCtx.fill();
       
     requestAnimationFrame(tick);
 }
@@ -143,6 +142,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
