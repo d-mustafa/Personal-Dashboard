@@ -1,7 +1,6 @@
 // PERSONAL DASHBOARD
 console.log("second minute hour");
 // Clock
-const outerClock = document.getElementById("clock-widget-container");
 const clockCnv = document.getElementById("clock");
 const clockCtx = clockCnv.getContext("2d");
 
@@ -130,6 +129,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
