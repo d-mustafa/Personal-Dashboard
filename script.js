@@ -24,7 +24,7 @@ function tick() {
     clockCtx.fillRect(-45, -1, 200, 2);
     clockCtx.restore();
     if (now - second >= 1000) {
-        secondHand += Math.PI/16;
+        secondHand += 2 * Math.PI/60; // 60 seconds for a full revolution
         second = Date.now();
     }
 
@@ -36,7 +36,7 @@ function tick() {
     clockCtx.fillRect(-25, -2.5, 145, 4);
     clockCtx.restore();
     if (now - minute >= 1000*60) {
-        minuteHand += Math.PI/16;
+        minuteHand += 2 * Math.PI/60; // 60 minutes for a full revolution
         minute = Date.now();
     }
       
@@ -46,8 +46,8 @@ function tick() {
     clockCtx.rotate(hourHand);
     clockCtx.fillRect(-20, -2.5, 120, 5);
     clockCtx.restore();
-    if (now - hour >= 1000*3600) {
-        hourHand += Math.PI/16;
+    if (now - hour >= 1000) {
+        hourHand += 2 * Math.PI/3600; // 3600 seconds for a full revolution
         hour = Date.now();
     }
 
@@ -142,6 +142,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
