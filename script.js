@@ -27,7 +27,7 @@ function tick() {
     clockCtx.save();
     clockCtx.translate(clockCnv.width/2, clockCnv.height/2);
     clockCtx.rotate(secondHand);
-    clockCtx.fillRect(-50, -1, 230, 2);
+    clockCtx.fillRect(-45, -1, 200, 2);
     clockCtx.restore();
     if (now - second >= 1000) {
         secondHand += Math.PI/16;
@@ -39,7 +39,7 @@ function tick() {
     clockCtx.save();
     clockCtx.translate(clockCnv.width/2, clockCnv.height/2);
     clockCtx.rotate(minuteHand);
-    clockCtx.fillRect(-25, -2.5, 145, 5);
+    clockCtx.fillRect(-25, -2.5, 145, 4);
     clockCtx.restore();
     if (now - minute >= 1000*60) {
         minuteHand += Math.PI/16;
@@ -143,6 +143,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
