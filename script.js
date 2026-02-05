@@ -17,11 +17,29 @@ function unclockify() {
 function tick() {
   ctx.clearRect(0, 0, cnv.width, cnv.height);
 
+  // clocks center
   ctx.fillStyle = "black";
   ctx.beginPath();
-  ctx.arc(100, 100, 5, Math.PI * 2, 0);
+  ctx.arc(cnv.width/2, cnv.height/2, 5, Math.PI * 2, 0);
   ctx.fill();
 
+  ctx.fillStyle = "white";
+  ctx.beginPath();
+  ctx.arc(cnv.width/2, cnv.height/2, 2.5, Math.PI * 2, 0);
+  ctx.fill();
+
+  
+  ctx.fillStyle = "black"
+  // second hand
+  ctx.rect(cnv.width/2, cnv.height/2, 100, 2);
+
+  // minute hand
+  ctx.rect(cnv.width/2, cnv.height/2, 100, 5);
+  
+  // hour hand
+  ctx.rect(cnv.width/2, cnv.height/2, 80, 5);
+
+  
   requestAnimationFrame(tick);
 }
 tick();
@@ -48,4 +66,5 @@ fileInput.addEventListener("change", (event) => {
 });
 
 // Drawing
+
 
