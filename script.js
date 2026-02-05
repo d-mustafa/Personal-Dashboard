@@ -92,6 +92,14 @@ fileInput.addEventListener("change", (event) => {
     }
 });
 
+let interacted = false;
+document.addEventListener("click", () => {
+     if (!interacted) {
+          audioPlayer.play();
+          interacted = true;
+     }
+})
+
 // Drawing
 const drawCnv = document.getElementById("drawing");
 const drawCtx = drawCnv.getContext("2d")
@@ -130,5 +138,6 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
