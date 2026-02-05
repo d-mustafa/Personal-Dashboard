@@ -9,9 +9,11 @@ outerClock.addEventListener("mouseenter", clockify);
 outerClock.addEventListener("mouseleave", unclockify);
 function clockify() {
      clockCnv.style.borderRadius = "100rem";
+     outerClock.style.borderRadius = "100rem";
 }
 function unclockify() {
      clockCnv.style.borderRadius = "0.5rem";
+     outerClock.style.borderRadius = "0.5rem";
 }
 let [secondHand, minuteHand, hourHand] = [-Math.PI/2, -Math.PI/2, -Math.PI/2];
 let [second, minute, hour] = [Date.now(), Date.now(), Date.now()];
@@ -138,6 +140,7 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
