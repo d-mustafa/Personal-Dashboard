@@ -5,14 +5,14 @@ const outerClock = document.getElementById("clock-widget-container");
 const cnv = document.getElementById("clock");
 const ctx = cnv.getContext("2d");
 
-outerClock.addEventListener("mouseenter", clockify);
-outerClock.addEventListener("mouseleave", unclockify);
-function clockify() {
-  cnv.style.borderRadius = "100rem";
-}
-function unclockify() {
-  cnv.style.borderRadius = "0.5rem";
-}
+// outerClock.addEventListener("mouseenter", clockify);
+// outerClock.addEventListener("mouseleave", unclockify);
+// function clockify() {
+//   cnv.style.borderRadius = "100rem";
+// }
+// function unclockify() {
+//   cnv.style.borderRadius = "0.5rem";
+// }
 
 function tick() {
   ctx.clearRect(0, 0, cnv.width, cnv.height);
@@ -66,5 +66,6 @@ fileInput.addEventListener("change", (event) => {
 });
 
 // Drawing
+
 
 
