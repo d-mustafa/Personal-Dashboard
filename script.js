@@ -130,17 +130,18 @@ function draw() {
     if (drawEnabled && mouseX > 0 && mouseY > 0 && mouseX < drawCnv.width && mouseY < drawCnv.height) {
         drawCtx.fillStyle = "black";
         drawCtx.beginPath();
-        drawCtx.arc(lastX, lastY, 4, Math.PI * 2, 0);
+        drawCtx.arc(lastX, lastY, 5, Math.PI * 2, 0);
         drawCtx.fill();
         
         drawCtx.beginPath();
-        drawCtx.arc(mouseX, mouseY, 4, Math.PI * 2, 0);
+        drawCtx.arc(mouseX, mouseY, 5, Math.PI * 2, 0);
         drawCtx.fill();
     }
   
     requestAnimationFrame(draw);
 }
 draw();
+
 
 
 
