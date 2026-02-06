@@ -54,6 +54,7 @@ let hourHand =
 let [secondTick, minuteTick, hourTick] = [Date.now(), Date.now(), Date.now()];
 let tickMark = ((2 * Math.PI) / 60) * 8.5;
 let interactSpeed = 1;
+let reverse = 1;
 function tick() {
   clockCtx.clearRect(0, 0, clockCnv.width, clockCnv.height);
 
@@ -69,14 +70,14 @@ function tick() {
         -(clockCnv.width / 2) + 48,
         -(clockCnv.height / 2) + 48,
         4,
-        4
+        4,
       );
     } else {
       clockCtx.fillRect(
         -(clockCnv.width / 2) + 48,
         -(clockCnv.height / 2) + 48,
         2,
-        2
+        2,
       );
     }
     clockCtx.restore();
@@ -99,7 +100,7 @@ function tick() {
   clockCtx.fillRect(-1, -45, 2, 180);
   clockCtx.restore();
   if (now - secondTick >= 1000 * interactSpeed) {
-    secondHand += (2 * Math.PI) / 60; // 60 seconds for a full revolution
+    secondHand += ((2 * Math.PI) / 60) * reverse; // 60 seconds for a full revolution
     secondTick = Date.now();
   }
 
@@ -111,7 +112,7 @@ function tick() {
   clockCtx.fillRect(-2.5, -25, 4, 145);
   clockCtx.restore();
   if (now - minuteTick >= 1000 * interactSpeed) {
-    minuteHand += (2 * Math.PI) / 3600; // 60 minutes for a full revolution (3600 seconds)
+    minuteHand += ((2 * Math.PI) / 3600) * reverse; // 60 minutes for a full revolution (3600 seconds)
     minuteTick = Date.now();
   }
 
@@ -122,7 +123,7 @@ function tick() {
   clockCtx.fillRect(-2.5, -20, 5, 120);
   clockCtx.restore();
   if (now - hourTick >= 1000 * interactSpeed) {
-    hourHand += (2 * Math.PI) / 43200; // 12 hours for a full revolution (43200 seconds)
+    hourHand += ((2 * Math.PI) / 43200) * reverse; // 12 hours for a full revolution (43200 seconds)
     hourTick = Date.now();
   }
 
@@ -137,7 +138,12 @@ function tick() {
   const dy = clockMouseY - clockCnv.height / 2;
   const distCenter = Math.hypot(dx, dy);
   const angleToCenter = Math.atan2(dx, dy);
-  if (distCenter < 150) console.log(angleToCenter);
+  if (distCenter < 162 && mouseDown) {
+    let limit = distCenter / 162;
+    interactSpeed = Math.max(1 / (1 + limit) ** 10, 0.01);
+    if (angleToCenter < 0) reverse = -1;
+    else reverse = 1;
+  } else interactSpeed = 1;
 
   requestAnimationFrame(tick);
 }
@@ -150,7 +156,6 @@ function triggerFileInput() {
 }
 
 const audioPlayer = document.getElementById("audio-player");
-let audioFile;
 fileInput.addEventListener("change", (event) => {
   const files = event.target.files;
 
