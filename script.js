@@ -1,4 +1,10 @@
 // PERSONAL DASHBOARD
+// Canvas
+const clockCnv = document.getElementById("clock");
+const clockCtx = clockCnv.getContext("2d");
+
+const drawCnv = document.getElementById("drawing");
+const drawCtx = drawCnv.getContext("2d");
 
 // Mouse
 let mouseDown = false;
@@ -11,10 +17,16 @@ document.addEventListener("mouseup", () => {
 
 let [clockMouseX, clockMouseY] = [0, 0];
 let [drawMouseX, drawMouseY] = [0, 0];
-let lastX, lastY;
+let lastXY = [];
 document.addEventListener("mousemove", (event) => {
-  lastX = drawMouseX;
-  lastY = drawMouseY;
+  if (
+    drawMouseX > 0 &&
+    drawMouseY > 0 &&
+    drawMouseX < drawCnv.width &&
+    drawMouseY < drawCnv.height &&
+    mouseDown
+  )
+    lastXY.push([drawMouseX, drawMouseY]);
 
   // clock canvas
   const clockRect = clockCnv.getBoundingClientRect();
@@ -32,9 +44,6 @@ document.addEventListener("mousemove", (event) => {
 });
 
 // Clock
-const clockCnv = document.getElementById("clock");
-const clockCtx = clockCnv.getContext("2d");
-
 // get the time
 let time = new Date();
 let seconds = time.getSeconds();
@@ -55,6 +64,8 @@ let [secondTick, minuteTick, hourTick] = [Date.now(), Date.now(), Date.now()];
 let tickMark = ((2 * Math.PI) / 60) * 8.5;
 let interactSpeed = 1;
 let reverse = 1;
+let timeColor = "#51a2ff";
+// draw clock function
 function tick() {
   clockCtx.clearRect(0, 0, clockCnv.width, clockCnv.height);
 
@@ -65,19 +76,19 @@ function tick() {
     clockCtx.translate(clockCnv.width / 2, clockCnv.height / 2);
     clockCtx.rotate(tickMark);
     if (i % 5 === 0) {
-      if (i === 60) clockCtx.fillStyle = "#51a2ff";
+      if (i === 60) clockCtx.fillStyle = timeColor;
       clockCtx.fillRect(
         -(clockCnv.width / 2) + 48,
         -(clockCnv.height / 2) + 48,
         4,
-        4,
+        4
       );
     } else {
       clockCtx.fillRect(
         -(clockCnv.width / 2) + 48,
         -(clockCnv.height / 2) + 48,
         2,
-        2,
+        2
       );
     }
     clockCtx.restore();
@@ -92,7 +103,7 @@ function tick() {
   clockCtx.fill();
 
   let now = Date.now();
-  clockCtx.fillStyle = "#51a2ff";
+  clockCtx.fillStyle = timeColor;
   // second hand
   clockCtx.save();
   clockCtx.translate(clockCnv.width / 2, clockCnv.height / 2);
@@ -141,9 +152,14 @@ function tick() {
   if (distCenter < 162 && mouseDown) {
     let limit = distCenter / 162;
     interactSpeed = Math.max(1 / (1 + limit) ** 10, 0.01);
+    timeColor = "grey";
     if (angleToCenter < 0) reverse = -1;
     else reverse = 1;
-  } else interactSpeed = 1;
+  } else {
+    timeColor = "#51a2ff";
+    interactSpeed = 1;
+    reverse = 1;
+  }
 
   requestAnimationFrame(tick);
 }
@@ -178,19 +194,30 @@ document.addEventListener("click", () => {
 });
 
 // Drawing
-const drawCnv = document.getElementById("drawing");
-const drawCtx = drawCnv.getContext("2d");
-const clearBtn = document.getElementById("clear-drawing");
 let clearCanvas = false;
-clearBtn.addEventListener("click", () => {
+function clearCanvasFlag() {
   clearCanvas = true;
-});
+}
+let swapBtn = document.getElementById("color-swap");
+let drawColor = "black";
+function swapColors() {
+  if (drawColor === "black") {
+    drawColor = "white";
+    swapBtn.classList =
+      "mr-5 text-black bg-white w-15 h-6 rounded-[1.5rem] outline-2 hover:bg-gray-200";
+    swapBtn.innerHTML = "white";
+  } else {
+    drawColor = "black";
+    swapBtn.classList =
+      "mr-5 text-white bg-black w-15 h-6 rounded-[1.5rem] outline-2 hover:bg-gray-800";
+    swapBtn.innerHTML = "black";
+  }
+}
 
 function draw() {
   if (clearCanvas) {
     drawCtx.clearRect(0, 0, drawCnv.width, drawCnv.height);
     clearCanvas = false;
-    [drawMouseX, drawMouseY, lastX, lastY] = [0, 0, 0, 0];
   }
   let mouseInCanvas =
     drawMouseX > 0 &&
@@ -198,16 +225,18 @@ function draw() {
     drawMouseX < drawCnv.width &&
     drawMouseY < drawCnv.height;
   if (mouseDown && mouseInCanvas) {
-    drawCtx.fillStyle = "black";
-    drawCtx.beginPath();
-    drawCtx.arc(lastX, lastY, 5, Math.PI * 2, 0);
-    drawCtx.fill();
-
+    drawCtx.fillStyle = drawColor;
     drawCtx.beginPath();
     drawCtx.arc(drawMouseX, drawMouseY, 5, Math.PI * 2, 0);
     drawCtx.fill();
+
+    lastXY.forEach((coord) => {
+      drawCtx.beginPath();
+      drawCtx.arc(coord[0], coord[1], 5, Math.PI * 2, 0);
+      drawCtx.fill();
+    });
   }
-  if (!mouseInCanvas) [drawMouseX, drawMouseY, lastX, lastY] = [0, 0, 0, 0];
+  if (!mouseInCanvas || !mouseDown) lastXY = [];
 
   requestAnimationFrame(draw);
 }
