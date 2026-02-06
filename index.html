@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,26 +8,35 @@
 
     <style type="text/tailwindcss">
       html {
-        background-color: black;
+        background-color: #1a1a1a;
+        background-image: linear-gradient(135deg, #132f41 15%, #461616 50%, #15461c 100%);
         color: white;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
       }
       canvas,
       div {
         touch-action: none;
+      }
+      .gradient-text {
+        background-image: linear-gradient(135deg, #2d6992 10%, #832525 50%, #278534 90%);
+        background-clip: text;
+        color: transparent;
       }
     </style>
 
     <title>Personal Dashboard</title>
   </head>
   <body>
-    <!-- Clock Widget -->
-    <!-- Music Player Widget -->
-    <!-- Drawing Widget -->
     <br />
-    <h1 class="mt-30 text-3xl font-bold text-clifford text-center">
+    <h1 class="mt-40 text-4xl font-bold text-clifford text-center bg-linear-135 from-[#2d6992] from-42% via-[#832525] via-49% to-[#278534] to-58% bg-clip-text text-transparent">
       Cool Interactive Widgets
     </h1>
 
+    <br />
     <br />
     <br />
     <div id="widget-container" class="flex flex-row justify-center">
@@ -80,13 +89,16 @@
           width="500px"
           height="500px"
           class="w-65 h-65 rounded-[0.5rem] bg-white mt-1.5 mb-1"
-        ></canvas
-        ><button
-          id="clear-drawing"
-          class="bg-lime-500 w-15 h-6 rounded-[1.5rem] outline-2 hover:bg-lime-400"
-        >
-          clear
-        </button>
+        ></canvas>
+        <div class="flex justify-center">
+          <button id="color-swap" class="mr-5 text-white bg-black w-15 h-6 rounded-[1.5rem] outline-2 hover:bg-gray-800" onclick="swapColors()">black<button>
+          <button
+            id="clear-drawing"
+            class="bg-lime-500 w-15 h-6 rounded-[1.5rem] outline-2 hover:bg-lime-400" onclick="clearCanvasFlag()"
+          >
+            clear
+          </button>
+        </div>
       </div>
     </div>
   </body>
